@@ -52,12 +52,14 @@ if __name__ == '__main__':
                          client_secret='',
                          user_agent='')
 
-    for submission in client.subreddit('art').hot(limit=10):
+    for submission in client.subreddit('art').new(limit=50):
         try:
             if filter_submission(submission.title) and filter_url(submission.url):
                 POSTS.append(make_submission_obj(submission))
         except KeyError:
             print("Skipping post with id: {}".format(submission.id))
             continue
+        except IndexError as e:
+            print("An error occured while indexing a field within the post with this URL:  ", str(submission.url), e)
     
     submit_posts(POSTS)

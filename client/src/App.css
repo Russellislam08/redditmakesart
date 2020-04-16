@@ -1,0 +1,86 @@
+.topnav {
+  background-color: #fff;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  border-bottom: 1px solid #dedede;
+  position: fixed;
+}
+
+.title {
+  font-weight: 200;
+  float: left;
+  padding-left: 22%;
+}
+
+.makes {
+  color: #ff4400;
+}
+
+.container {
+  padding-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  width: 60%;
+  text-align: center;
+}
+
+/* Optional style for fetched images */
+.images {
+  max-width: 60%;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.image-box {
+  margin: 10px;
+  width: 95%;
+  height: 50%;
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #dedede;
+  border-radius: 3px;
+}
+.single-photo {
+  width: 100%;
+  max-height: 80%;
+  flex-grow: 1;
+  vertical-align: middle;
+  border-top: 1px solid #dedede;
+}
+
+.sidebar {
+  width: 45%;
+  height: 100%;
+  background-color: #fff; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  margin-top: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: left;
+  border: 1px solid #dedede;
+  border-radius: 3px;
+}
+
+.image-author {
+  margin: 5px;
+  padding: 5px;
+  padding-top: 10px;
+  font-weight: bold;
+  color: #808080;
+}
+
+.image-title {
+  margin: 5px;
+  padding: 5px;
+  margin-bottom: 2px;
+  font-weight: light;
+}
+
+.reddit-link {
+  font-size: 9px;
+  margin-left: 5px;
+  padding-left: 5px;
+  color: #b5b5b5;
+}
