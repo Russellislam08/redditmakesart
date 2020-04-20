@@ -1,6 +1,8 @@
 from collections import namedtuple
+from os import environ
 from pprint import pprint
 import re
+from sys import exit
 
 import loguru
 import praw
@@ -48,9 +50,14 @@ def filter_url(url):
 
 if __name__ == '__main__':
 
-    client = praw.Reddit(client_id='',
-                         client_secret='',
-                         user_agent='')
+    try:
+        client = praw.Reddit(client_id=environ['CLIENT_ID'],
+                             client_secret=environ['CLIENT_SECRET'],
+                             user_agent='reddit_app')
+    except KeyError as e:
+        print("Missing environment variable for reddit authentication: ", e)
+        print("Terminating...")
+        exit(1)
 
     for submission in client.subreddit('art').new(limit=50):
         try:

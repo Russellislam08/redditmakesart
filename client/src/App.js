@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Container } from "react-bootstrap";
+import {
+  Container,
+  Navbar,
+  Nav,
+  NavDropdown,
+  Form,
+  FormControl,
+  Button,
+} from "react-bootstrap";
 import logo from "./logo.svg";
 import "./App.css";
 import Images from "./components/images";
@@ -8,20 +16,38 @@ class App extends Component {
   render() {
     return (
       <div id="root">
-        <div className="hero is-fullheight is-bold is-info">
-          <div className="topnav nav-content">
-            <h2 className="title">
-              reddit<span class="makes">makes</span>art
-            </h2>
-            <div class="topnav-right title">
-              <a href="#search">Search</a>
-              <a href="#about">About</a>
-            </div>
+        {/* <Navbar className="topnav">
+          <h2 className="title">
+            reddit<span class="makes">makes</span>art
+          </h2>
+          <div class="topnav-right title">
+            <a href="#search">Search</a>
+            <a href="#about">About</a>
           </div>
-          <Container>
-            <Images />
+        </Navbar> */}
+        <Navbar expand="lg" fixed="top" className="topnav">
+          <Container className="topnav-container">
+            <Navbar.Brand className="brand" href="/">
+              reddit<span class="makes">makes</span>art
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ml-auto nav-content">
+                <Nav.Link
+                  href="https://www.github.com/russellislam08"
+                  className="mr-sm-2"
+                >
+                  github
+                </Nav.Link>
+                <Nav.Link href="https://www.reddit.com/r/art">r/art</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
           </Container>
-        </div>
+        </Navbar>
+
+        <Container>
+          <Images />
+        </Container>
       </div>
     );
   }
