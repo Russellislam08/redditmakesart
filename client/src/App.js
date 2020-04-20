@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Container } from "react-bootstrap";
 import logo from "./logo.svg";
 import "./App.css";
 import Images from "./components/images";
@@ -12,24 +13,14 @@ class App extends Component {
             <h2 className="title">
               reddit<span class="makes">makes</span>art
             </h2>
-          </div>
-          <div className="hero-body">
-            <div className="container">
-              <Images />
-              <div className="sidebar">
-                <p>
-                  This is a website that showcases original art content made by
-                  reddit users on the r/art subreddit
-                </p>
-                <p>Some other cool subreddits:</p>
-                <ul>
-                  <li>r/art</li>
-                  <li>r/dota2</li>
-                  <li>r/cscareerquestions</li>
-                </ul>
-              </div>
+            <div class="topnav-right title">
+              <a href="#search">Search</a>
+              <a href="#about">About</a>
             </div>
           </div>
+          <Container>
+            <Images />
+          </Container>
         </div>
       </div>
     );
