@@ -7,7 +7,7 @@ from sys import exit
 import loguru
 import praw
 
-from dbhelpers import submit_posts
+from dbhelpers import submit_posts, submit_to_dynamo, submit_to_rds
 
 POSTS = list()
 REDDIT_STR = "https://www.reddit.com"
@@ -19,9 +19,9 @@ def make_submission_obj(submission):
                  submission.url, REDDIT_STR + submission.permalink,
                  submission.score)
     # return {
-    #         "id": submission.id,
+    #         "uuid": submission.id,
     #         "title": submission.title,
-    #         "author": submission.author,
+    #         "author": submission.author.name,
     #         "image_url": submission.url,
     #         "permalink": REDDIT_STR + submission.permalink,
     #         "score": submission.score
@@ -65,8 +65,11 @@ if __name__ == '__main__':
                 POSTS.append(make_submission_obj(submission))
         except KeyError:
             print("Skipping post with id: {}".format(submission.id))
-            continue
         except IndexError as e:
             print("An error occured while indexing a field within the post with this URL:  ", str(submission.url), e)
+        except Exception as e:
+            print("An unhandled exception has occured: ", e)
     
-    submit_posts(POSTS)
+    # submit_posts(POSTS)
+    # submit_to_dynamo(POSTS)
+    submit_to_rds(POSTS)
