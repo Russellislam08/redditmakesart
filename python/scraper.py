@@ -47,9 +47,7 @@ def filter_url(url):
     string_to_match = "i.redd.it"
     return re.search(string_to_match, url)
 
-
-if __name__ == '__main__':
-
+def main(*args):
     try:
         client = praw.Reddit(client_id=environ['CLIENT_ID'],
                              client_secret=environ['CLIENT_SECRET'],
@@ -59,7 +57,7 @@ if __name__ == '__main__':
         print("Terminating...")
         exit(1)
 
-    for submission in client.subreddit('art').new(limit=50):
+    for submission in client.subreddit('art').top(limit=100):
         try:
             if filter_submission(submission.title) and filter_url(submission.url):
                 POSTS.append(make_submission_obj(submission))
@@ -73,3 +71,31 @@ if __name__ == '__main__':
     # submit_posts(POSTS)
     # submit_to_dynamo(POSTS)
     submit_to_rds(POSTS)
+
+
+# if __name__ == '__main__':
+# 
+#     main()
+    # try:
+    #     client = praw.Reddit(client_id=environ['CLIENT_ID'],
+    #                          client_secret=environ['CLIENT_SECRET'],
+    #                          user_agent='reddit_app')
+    # except KeyError as e:
+    #     print("Missing environment variable for reddit authentication: ", e)
+    #     print("Terminating...")
+    #     exit(1)
+
+    # for submission in client.subreddit('art').top(limit=100):
+    #     try:
+    #         if filter_submission(submission.title) and filter_url(submission.url):
+    #             POSTS.append(make_submission_obj(submission))
+    #     except KeyError:
+    #         print("Skipping post with id: {}".format(submission.id))
+    #     except IndexError as e:
+    #         print("An error occured while indexing a field within the post with this URL:  ", str(submission.url), e)
+    #     except Exception as e:
+    #         print("An unhandled exception has occured: ", e)
+    # 
+    # # submit_posts(POSTS)
+    # # submit_to_dynamo(POSTS)
+    # submit_to_rds(POSTS)

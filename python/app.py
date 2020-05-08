@@ -1,7 +1,10 @@
+import os
 from pprint import pprint
 import sqlite3
 
 from flask import Flask, jsonify, request
+import pymysql
+import requests
 
 
 app = Flask(__name__)
@@ -10,11 +13,12 @@ SELECT_QUERY = """ SELECT uuid, title, author, image_url, permalink, score FROM 
                    ORDER BY Timestamp DESC LIMIT 10;
                """
 
-OFFSET_QUERY = """ SELECT uuid, title, author, image_url, permalink, score
-                   FROM reddit_images
+OFFSET_QUERY = """ 
+                   SELECT uuid, title, author, image_url, permalink, score
+                   FROM testing_table
                    ORDER BY Timestamp DESC
                    LIMIT 10
-                   OFFSET ?;
+                   OFFSET %s;
                """
 
 def dict_factory(cursor, row):
@@ -22,6 +26,10 @@ def dict_factory(cursor, row):
     for idx, col in enumerate(cursor.description):
         d[col[0]] = row[idx]
     return d
+
+def filter_posts(response):
+    return [post for post in response if 
+            requests.get(post['image_url']).status_code == 200]
 
 def get_images():
     connection = sqlite3.connect('reddit_images.db')
@@ -37,14 +45,26 @@ def hello():
 
 @app.route("/images")
 def img():
-    offset = request.args.get('offset')
-    print("This is the offset: ", offset)
-    connection = sqlite3.connect('reddit_images.db')
-    connection.row_factory = dict_factory
-    cursor = connection.cursor()
+    offset = int(request.args.get('offset'))
+    # connection = sqlite3.connect('reddit_images.db')
+
+    conn = pymysql.connect(os.environ['DB_ENDPOINT'],
+                           user=os.environ['DB_USER'], password=os.environ['DB_PASSWORD'],
+                           db='test_db')
+
+    # conn.row_factory = dict_factory
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+    print(cursor.mogrify(OFFSET_QUERY, (offset,)))
     cursor.execute(OFFSET_QUERY, (offset,))
-    return jsonify(cursor.fetchall())
+
+    response = cursor.fetchall()
+    pprint(response)
+    # modified_response = filter_posts(response)
+    # pprint(modified_response)
+
+
+    return jsonify(response)
     
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

@@ -40,16 +40,17 @@ def submit_to_dynamo(posts):
     pass
 
 def submit_to_rds(posts):
+    print("Attempting to connect to database...")
     conn = pymysql.connect(os.environ['DB_ENDPOINT'],
                            user=os.environ['DB_USER'], password=os.environ['DB_PASSWORD'],
                            db='test_db')
+    print("Successfully connected to database")
 
     c = conn.cursor()
     print("Initialized connection and cursor")
 
     for post in posts:
         pprint(tuple(post))
-        print(type(tuple(post)[-1]))
         print(c.execute(INSERT_QUERY, tuple(post)))
         conn.commit()
 
