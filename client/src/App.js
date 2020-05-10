@@ -16,15 +16,6 @@ class App extends Component {
   render() {
     return (
       <div id="root">
-        {/* <Navbar className="topnav">
-          <h2 className="title">
-            reddit<span class="makes">makes</span>art
-          </h2>
-          <div class="topnav-right title">
-            <a href="#search">Search</a>
-            <a href="#about">About</a>
-          </div>
-        </Navbar> */}
         <Navbar expand="lg" fixed="top" className="topnav">
           <Container className="topnav-container">
             <Navbar.Brand className="brand" href="/">

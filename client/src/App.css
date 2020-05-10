@@ -19,15 +19,25 @@
   padding-top: 80px;
   margin-left: auto;
   margin-right: auto;
-  width: 60%;
+  width: 100%;
   text-align: center;
 }
 
+@media only screen and (max-width: 1680px){
+  .images {
+    max-width: 60%;
+    margin-top: 10px;
+    margin: auto;
+  }
+}
+
 /* Optional style for fetched images */
-.images {
-  max-width: 60%;
-  margin-top: 10px;
-  margin: auto;
+@media only screen and (max-width: 1440px){
+  .images {
+    max-width: 100%;
+    margin-top: 10px;
+    margin: auto;
+  }
 }
 
 .image-box {

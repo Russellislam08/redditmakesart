@@ -57,7 +57,7 @@ def main(*args):
         print("Terminating...")
         exit(1)
 
-    for submission in client.subreddit('art').top(limit=100):
+    for submission in client.subreddit('art').new(limit=100):
         try:
             if filter_submission(submission.title) and filter_url(submission.url):
                 POSTS.append(make_submission_obj(submission))
@@ -73,9 +73,9 @@ def main(*args):
     submit_to_rds(POSTS)
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
 # 
-#     main()
+    main()
     # try:
     #     client = praw.Reddit(client_id=environ['CLIENT_ID'],
     #                          client_secret=environ['CLIENT_SECRET'],
