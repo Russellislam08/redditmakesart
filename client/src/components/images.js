@@ -17,7 +17,7 @@ export class Images extends Component {
     const { offset } = this.state;
     console.log(this.state);
     axios.get(`/images?offset=${offset}`).then((res) => {
-      this.setState({ images: res.data, offset: 9 });
+      this.setState({ images: res.data, offset: 4 });
       console.log("This state after mount fetch");
       console.log(this.state);
     });
@@ -29,7 +29,7 @@ export class Images extends Component {
     axios.get(`/images?offset=${offset}`).then((res) => {
       this.setState({
         images: this.state.images.concat(res.data),
-        offset: offset + 10,
+        offset: offset + 5,
       });
     });
   };
