@@ -1,0 +1,8 @@
+# in scraper directory, you do:
+pip3 install -r requirements.txt --target ./package
+zip -r9 ./function.zip ./package/
+zip -g function.zip scraper.py
+zip -g function.zip dal.py
+
+# from here, you can either upload manually to lambda, use terraform
+# or use awscli
