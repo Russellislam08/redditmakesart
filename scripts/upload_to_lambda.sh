@@ -1,6 +1,6 @@
 # in scraper directory, you do:
 pip3 install -r requirements.txt --target ./package
-zip -r9 ./function.zip ./package/
+cd package && zip -r9 ../function.zip ./package/ && cd ../
 zip -g function.zip scraper.py
 zip -g function.zip dal.py
 
