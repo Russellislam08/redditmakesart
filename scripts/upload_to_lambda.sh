@@ -6,5 +6,4 @@ zip -g function.zip dal.py
 
 # from here, you can either upload manually to lambda, use terraform
 # or use awscli
-
 aws lambda update-function-code --function-name my-function --zip-file fileb://function.zip
