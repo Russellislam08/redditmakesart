@@ -1,14 +1,18 @@
-from collections import namedtuple
-from os import environ
-from pprint import pprint
+''' 
+Scraper which uses PRAW to retrieve posts from the r/art
+subreddit and submit it to speciifed database
+'''
+import os
 import re
-from sys import exit
+import sys
 
-import loguru
 import praw
 
-from dbhelpers import submit_posts, submit_to_dynamo, submit_to_rds
+from dal import submit_to_rds
+from collections import namedtuple
+from pprint import pprint
 
+# Some globals
 POSTS = list()
 REDDIT_STR = "https://www.reddit.com"
 IMAGE = namedtuple('Image', ['id', 'title', 'author', 'image_url', 'permalink', 'score'])
@@ -18,6 +22,7 @@ def make_submission_obj(submission):
     return IMAGE(submission.id, submission.title, submission.author.name,
                  submission.url, REDDIT_STR + submission.permalink,
                  submission.score)
+    # Bottom code is here for reference
     # return {
     #         "uuid": submission.id,
     #         "title": submission.title,
@@ -49,15 +54,15 @@ def filter_url(url):
 
 def main(*args):
     try:
-        client = praw.Reddit(client_id=environ['CLIENT_ID'],
-                             client_secret=environ['CLIENT_SECRET'],
+        client = praw.Reddit(client_id=os.environ['CLIENT_ID'],
+                             client_secret=os.environ['CLIENT_SECRET'],
                              user_agent='reddit_app')
     except KeyError as e:
         print("Missing environment variable for reddit authentication: ", e)
         print("Terminating...")
-        exit(1)
+        sys.exit(1)
 
-    for submission in client.subreddit('art').new(limit=100):
+    for submission in client.subreddit('art').top('day', limit=100):
         try:
             if filter_submission(submission.title) and filter_url(submission.url):
                 POSTS.append(make_submission_obj(submission))
@@ -68,34 +73,4 @@ def main(*args):
         except Exception as e:
             print("An unhandled exception has occured: ", e)
     
-    # submit_posts(POSTS)
-    # submit_to_dynamo(POSTS)
-    submit_to_rds(POSTS)
-
-
-if __name__ == '__main__':
-# 
-    main()
-    # try:
-    #     client = praw.Reddit(client_id=environ['CLIENT_ID'],
-    #                          client_secret=environ['CLIENT_SECRET'],
-    #                          user_agent='reddit_app')
-    # except KeyError as e:
-    #     print("Missing environment variable for reddit authentication: ", e)
-    #     print("Terminating...")
-    #     exit(1)
-
-    # for submission in client.subreddit('art').top(limit=100):
-    #     try:
-    #         if filter_submission(submission.title) and filter_url(submission.url):
-    #             POSTS.append(make_submission_obj(submission))
-    #     except KeyError:
-    #         print("Skipping post with id: {}".format(submission.id))
-    #     except IndexError as e:
-    #         print("An error occured while indexing a field within the post with this URL:  ", str(submission.url), e)
-    #     except Exception as e:
-    #         print("An unhandled exception has occured: ", e)
-    # 
-    # # submit_posts(POSTS)
-    # # submit_to_dynamo(POSTS)
-    # submit_to_rds(POSTS)
+    submit_to_rds(POSTS)  # Submit all scraped images to AWS RDS
