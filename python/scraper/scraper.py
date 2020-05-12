@@ -64,7 +64,7 @@ def main(*args):
 
     for submission in client.subreddit('art').top('day', limit=100):
         try:
-            if filter_submission(submission.title) and filter_url(submission.url):
+            if (filter_submission(submission.title) and filter_url(submission.url) and not submission.over_18):
                 POSTS.append(make_submission_obj(submission))
         except KeyError:
             print("Skipping post with id: {}".format(submission.id))
