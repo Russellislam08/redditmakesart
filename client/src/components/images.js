@@ -15,14 +15,14 @@ export class Images extends Component {
 
   componentDidMount() {
     const { offset } = this.state;
-    axios.get(`/images?offset=${offset}`).then((res) => {
+    axios.get(`/app?offset=${offset}`).then((res) => {
       this.setState({ images: res.data, offset: 4 });
     });
   }
 
   fetchImages = () => {
     const { offset } = this.state;
-    axios.get(`/images?offset=${offset}`).then((res) => {
+    axios.get(`/app?offset=${offset}`).then((res) => {
       this.setState({
         images: this.state.images.concat(res.data),
         offset: offset + 5,
