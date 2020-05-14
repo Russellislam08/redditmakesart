@@ -1,4 +1,4 @@
-sudo cp ~/redditmakesart/client/* /opt/front-end/
+sudo cp -r ~/redditmakesart/client/* /opt/front-end/
 cd /opt/front-end
 sudo npm install
 sudo npm run build
