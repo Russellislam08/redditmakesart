@@ -25,7 +25,7 @@ class App extends Component {
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="ml-auto nav-content">
                 <Nav.Link
-                  href="https://www.github.com/russellislam08"
+                  href="https://github.com/Russellislam08/redditmakesart"
                   className="mr-sm-2"
                 >
                   github
