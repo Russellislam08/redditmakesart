@@ -7,7 +7,7 @@ A website which showcases all **original art content** pieces created by Reddit 
 ## Technologies Used
 - React (create-react-app) for the front end with asynchronous loading
 - Flask back-end for abstracting all database requests
-- AWS
+- [AWS](https://aws.amazon.com/)
   - EC2 for hosting website, using NGINX as a webserver
   - Lambda for periodically scraping the r/art subreddit using the Reddit API and storing into a database
   - RDS (MySQL) for easy and secure storage of all image metadata
@@ -37,7 +37,7 @@ I think Reddit has a lot of beautiful original content created by many people ac
 
 So I decided to pick one of these subreddits to showcase, and the one that I happen to frequent is [r/art](https://www.reddit.com/r/art), hence I decided to pick it as the subreddit that I wanted to showcase.
 
-Reddit is not as bad as people deem it to be. Furthermore, there's A LOT of talented people out there, and all that talent can be easily shrouded by all of the noise on the internet. An art-gallery like showcase, such as the aesthetic of RedditMakesArt, hopes to eliminate all of that and just showcase the art for wahat it is, hopefully garnering the recognition that it deserves.
+Reddit is not as bad as people deem it to be. Furthermore, there's A LOT of talented people out there, and all that talent can be easily shrouded by all of the noise on the internet. An art-gallery like showcase, such as the aesthetic of RedditMakesArt, hopes to eliminate all of that and just showcase the art for what it is, hopefully garnering the recognition that it deserves.
 
 ### Disclaimer
 None of the art pieces on the website is mine. All credit goes to Reddit, and each submission has a link to the original submission on Reddit.
